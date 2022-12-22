@@ -70,12 +70,11 @@ const Allpost = () => {
     // } else {
     //   setCount((prev) => prev - 1);
     // }
-    setInfo(
-      info.filter((el) => {
-        el.id == id ? el.LikeCount + 1 : el.LikeCount;
-        // console.log(el.id)
-      })
-    );
+
+    info.filter((el) => {
+      el.id == id ? el.LikeCount + 1 : el.LikeCount;
+      // console.log(el.id)
+    });
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::
