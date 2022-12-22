@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   IconButton,
   Avatar,
@@ -37,7 +38,12 @@ const LinkItems = [
   { name: "My Profile", icon: FiCompass, href: "/user" },
 ];
 
+
+
+
 export default function Sidebar({ children }) {
+
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
@@ -63,15 +69,13 @@ export default function Sidebar({ children }) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
-      <Box ml={[0, 0, "6rem"]}>
-        {/* components will go here */}
-        
-      </Box>
+      <Box ml={[0, 0, "6rem"]}>{/* components will go here */}</Box>
     </Box>
   );
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const router = useRouter();
   return (
     <Box
       transition="3s ease"
@@ -92,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       <Box>
         {LinkItems.map((link) => (
           <NavItem key={link.name} icon={link.icon}>
-            {link.name}
+            <Link href={link.href}> {link.name}</Link>
           </NavItem>
         ))}
       </Box>
@@ -137,6 +141,14 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const [user,setUser] = useState([])
+  var data;
+  useEffect(() => {
+    setUser( JSON.parse(localStorage.getItem("user"))
+    )
+   
+  }, [])
+  console.log(user.user.name)
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -193,7 +205,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm"></Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
