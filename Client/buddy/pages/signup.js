@@ -14,23 +14,44 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function SimpleCard() {
+  //const {name,image,gender,dob,number,email, password} = req.body;
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState("");
+  const [phone, setPhone] = useState();
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+
+
+
+//   function handleChange(e) {
+//       setImage(URL.createObjectURL(e.target.value));
+//     }
+//     console.log(image);
+
+
 
   const handleSignup = () => {
     let posts = {
       name,
       email,
       password,
+      image,
+      phone,
+      dob,
+      gender
     };
-
+ console.log(posts)
     axios
       .post("http://localhost:8080/signup", posts)
       .then((res) => {
         console.log("res", res.data);
+        router.push("/login");
       })
       .catch((err) => {
         console.log("error in request", err);
@@ -68,6 +89,15 @@ export default function SimpleCard() {
               />
             </FormControl>
             {/* --------------------------- */}
+            <FormControl id="image">
+              <FormLabel>Image</FormLabel>
+              <Input
+                onChange={(e)=>setImage(e.target.value)}
+                value={image}
+                type="text"
+              />
+            </FormControl>
+            {/* --------------------------- */}
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input
@@ -83,6 +113,35 @@ export default function SimpleCard() {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 type="password"
+              />
+            </FormControl>
+            {/* ----------------------------- */}
+            <FormControl id="phoneNumber">
+              <FormLabel>Phone Number</FormLabel>
+              <Input
+                placeholder="+91 "
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
+                type="number"
+              />
+            </FormControl>
+            {/* ----------------------------- */}
+            <FormControl id="Gender">
+              <FormLabel>Gender</FormLabel>
+              <Input
+                placeholder="Male / Female / Others"
+                onChange={(e) => setGender(e.target.value)}
+                value={gender}
+                type="text"
+              />
+            </FormControl>
+            {/* ----------------------------- */}
+            <FormControl id="Age">
+              <FormLabel>Age</FormLabel>
+              <Input
+                onChange={(e) => setDob(e.target.value)}
+                value={dob}
+                type="text"
               />
             </FormControl>
             <Stack spacing={10}>

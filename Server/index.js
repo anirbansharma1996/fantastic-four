@@ -18,8 +18,8 @@ app.get("/", (req, res) => {
 })
 
 app.post("/signup", async (req, res) => {
-  const {name,email, password} = req.body;
-  //const {name,image,gender,dob,number,email, password} = req.body;
+  //const {name,email, password} = req.body;
+  const {name,image,gender,dob,number,email, password} = req.body;
   const userPre = await UserModel.findOne({email})
 
   if(userPre?.email){
@@ -28,7 +28,7 @@ app.post("/signup", async (req, res) => {
   else{
     try{
 bcrypt.hash(password,4, async function(err,hash){
-    const user = new UserModel({name,email,password:hash})
+    const user = new UserModel({name,email,image,gender,dob,number,password:hash})
     await user.save()
     res.send({"message": "signup successfully",user})
 })
@@ -48,7 +48,7 @@ app.post("/login", async (req, res)=>{
         bcrypt.compare(password, hashed_pass, function(err,result){
             if(result){
                 const token = jwt.sign
-                ({"userID": user._id}, 'hush')
+                ({"userID": user[0]._id}, 'hush')
                 res.send({token,user})
             }
             else{

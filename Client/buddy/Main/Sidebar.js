@@ -33,17 +33,12 @@ import Userpost from "../pages/userposts";
 import Home from "../pages";
 
 const LinkItems = [
-  { name: "Home", icon: FiHome, href: "/home" },
-  { name: "My Posts", icon: FiTrendingUp, href: "/userposts" },
-  { name: "My Profile", icon: FiCompass, href: "/user" },
+  { name: "Home", icon: <FiHome />, href: "/home" },
+  { name: "My Posts", icon: <FiTrendingUp />, href: "/userposts" },
+  { name: "My Profile", icon: <FiCompass />, href: "/user" },
 ];
 
-
-
-
 export default function Sidebar({ children }) {
-
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
@@ -95,9 +90,24 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Box>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
-            <Link href={link.href}> {link.name}</Link>
-          </NavItem>
+          <>
+            <Box
+              key={link.name}
+              p={4}
+              w="85%"
+              m="auto"
+              mt={2}
+              borderRadius="20px"
+              backgroundColor={"blue.50"}
+            >
+              <Link href={link.href} display={"flex"}>
+                <Box>
+                  {link.icon}
+                  {link.name}
+                </Box>
+              </Link>
+            </Box>
+          </>
         ))}
       </Box>
     </Box>
@@ -141,14 +151,12 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
-  const [user,setUser] = useState([])
+  const [user, setUser] = useState([]);
   var data;
   useEffect(() => {
-    setUser( JSON.parse(localStorage.getItem("user"))
-    )
-   
-  }, [])
-  console.log(user.user.name)
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -196,8 +204,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Avatar
                   size={"sm"}
                   src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjPocG4l1G7i-FGu_OrbUz2d9mfspr7f6lUA&usqp=CAU"
                   }
+                  alt={""}
                 />
                 <VStack
                   display={{ base: "none", md: "flex" }}
@@ -205,10 +214,16 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm"></Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
+                  {user.user?.map((el) => (
+                    <>
+                      <Text as="b" fontSize="sm">
+                        {el.name}
+                      </Text>
+                      <Text fontSize="xs" color="gray.600">
+                        {el.email}
+                      </Text>
+                    </>
+                  ))}
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />
