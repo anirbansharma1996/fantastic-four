@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   IconButton,
   Avatar,
@@ -19,6 +19,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Button,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -28,6 +29,8 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
+import { GrLogout } from "react-icons/gr";
+import Allpost from "../pages/allposts";
 
 const LinkItems = [
   { name: "Home", icon: FiHome },
@@ -61,11 +64,12 @@ export default function Sidebar({ children }) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
+      <Box ml={[0, 0, "10rem"]}>
+        <Allpost />
+      </Box>
     </Box>
   );
 }
-
-
 
 const SidebarContent = ({ onClose, ...rest }) => {
   return (
@@ -85,21 +89,16 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      <Box >
-      {LinkItems.map((link) => (
+      <Box>
+        {LinkItems.map((link) => (
           <NavItem key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
-      ))}
-      </Box>
-     
-      <Box mt='15rem' h='80px' border='1px solid teal'>
-         hello
+        ))}
       </Box>
     </Box>
   );
 };
-
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (
@@ -136,7 +135,6 @@ const NavItem = ({ icon, children, ...rest }) => {
     </Link>
   );
 };
-
 
 const MobileNav = ({ onOpen, ...rest }) => {
   return (
