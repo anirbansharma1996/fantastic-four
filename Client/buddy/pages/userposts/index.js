@@ -24,8 +24,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FcLike } from "react-icons/fc";
-import { BiChat, BiLike, BiShare } from "react-icons/bi";
-import Comments from "../userposts/comments";
+import { BiChat, BiLike } from "react-icons/bi";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import Comments from "./comments";
 //::::::::::::::::::::::::::::::::::::::::::
 let date = new Date().toLocaleDateString();
 const data = [
@@ -50,7 +51,7 @@ const data = [
 ];
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::
-const Home = () => {
+const Userpost = () => {
   const [status, setStatus] = useState(true);
   //const [count, setCount] = useState(0);
   const [info, setInfo] = useState(data);
@@ -73,12 +74,12 @@ const Home = () => {
     });
   };
 
-  //::::::::::::::::::::::::::::::::::::::::::::::::
+  //:::::::::::::::::: COMMENT SECTION ::::::::::::::::::::::::::::::
   const handleComment = () => {
     setComment([...commment, text]);
     onClose();
   };
-  //:::::::::::::::::::::::::::::::::::::::::::::::::
+  //::::::::::::::::::: SHOW ON UI::::::::::::::::::::::::::::::
   return (
     <div>
       {info.map((el, i) => (
@@ -136,7 +137,7 @@ const Home = () => {
             >
               {status ? "Like" : ""}
             </Button>
-            {/*:::::::::::::::::  COMMENT   ::::::::::::::::::: */}
+            {/*::::::::::::::::: COMMENT BUTTON   ::::::::::::::::::: */}
             <Button
               onClick={onOpen}
               flex="1"
@@ -145,7 +146,7 @@ const Home = () => {
             >
               Comment
             </Button>
-            {/*:::::::::: COMMENT MODAL  :::::::::: */}
+            {/*::::::::: COMMENT MODAL :::::::::: */}
             <Modal
               initialFocusRef={initialRef}
               finalFocusRef={finalRef}
@@ -174,9 +175,13 @@ const Home = () => {
                 </ModalFooter>
               </ModalContent>
             </Modal>
-            {/*::::::::::::::::: POST SHARE  ::::::::::::::::::: */}
-            <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
-              Share
+            {/*::::::::::::::::: POST EDIT BUTTON   ::::::::::::::::::: */}
+            <Button flex="1" variant="ghost" leftIcon={<AiOutlineEdit />}>
+              Edit
+            </Button>
+            {/*:::::::::::::::::POST DELETE BUTTON   ::::::::::::::::::: */}
+            <Button flex="1" variant="ghost" leftIcon={<AiOutlineDelete />}>
+              Delete
             </Button>
           </CardFooter>
         </Card>
@@ -185,4 +190,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Userpost;

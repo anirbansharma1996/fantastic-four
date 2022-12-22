@@ -1,4 +1,5 @@
-import Sidebar from "../Main/Sidebar"
+
+import Sidebar from "../Main/Sidebar";
 
 
 export default function Home() {
