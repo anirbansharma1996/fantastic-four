@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   IconButton,
   Avatar,
@@ -19,7 +19,6 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Button,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -29,7 +28,6 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
-import { GrLogout } from "react-icons/gr";
 import Allpost from "../pages/allposts";
 
 const LinkItems = [
@@ -64,7 +62,7 @@ export default function Sidebar({ children }) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
-      <Box ml={[0, 0, "10rem"]}>
+      <Box ml={[0,0,'6rem']}>
         <Allpost />
       </Box>
     </Box>
@@ -95,6 +93,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {link.name}
           </NavItem>
         ))}
+      </Box>
+
+      <Box mt="15rem" h="80px" border="1px solid teal">
+        hello
       </Box>
     </Box>
   );
