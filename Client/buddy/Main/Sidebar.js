@@ -1,4 +1,5 @@
-import React from "react";
+import React, { ReactNode } from "react";
+import Link from "next/link";
 import {
   IconButton,
   Avatar,
@@ -9,7 +10,6 @@ import {
   VStack,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -19,7 +19,6 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Button,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -29,13 +28,13 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
-import { GrLogout } from "react-icons/gr";
-import Allpost from "../pages/allposts";
+import Userpost from "../pages/userposts";
+import Home from "../pages";
 
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "My Posts", icon: FiTrendingUp },
-  { name: "My Profile", icon: FiCompass },
+  { name: "Home", icon: FiHome, href: "/home" },
+  { name: "My Posts", icon: FiTrendingUp, href: "/userposts" },
+  { name: "My Profile", icon: FiCompass, href: "/user" },
 ];
 
 export default function Sidebar({ children }) {
@@ -64,8 +63,9 @@ export default function Sidebar({ children }) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
-      <Box ml={[0, 0, "10rem"]}>
-        <Allpost />
+      <Box ml={[0, 0, "6rem"]}>
+        {/* components will go here */}
+        
       </Box>
     </Box>
   );
