@@ -9,7 +9,6 @@ import {
   CardHeader,
   Flex,
   FormControl,
-  FormLabel,
   Heading,
   IconButton,
   Image,
@@ -25,8 +24,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FcLike } from "react-icons/fc";
-import { BiChat, BiLike, BiShare } from "react-icons/bi";
-import { AiTwotoneLike } from "react-icons/ai";
+import { BiChat, BiLike } from "react-icons/bi";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import Comments from "./comments";
 //::::::::::::::::::::::::::::::::::::::::::
 let date = new Date().toLocaleDateString();
@@ -50,10 +49,11 @@ const data = [
     url: "https://images.thrillophilia.com/image/upload/s--mOEdz9cf--/c_fill,g_auto,h_600,q_auto,w_975/f_auto,fl_strip_profile/v1/images/photos/000/291/831/original/1591005402_1549976608_Nathula_Pass.jpg.jpg.jpg?1591005402",
   },
 ];
+
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::
-const Allpost = () => {
+const Userpost = () => {
   const [status, setStatus] = useState(true);
-  const [count, setCount] = useState(0);
+  //const [count, setCount] = useState(0);
   const [info, setInfo] = useState(data);
   const [text, setText] = useState("");
   const [commment, setComment] = useState([]);
@@ -65,37 +65,31 @@ const Allpost = () => {
 
   const handleLike = (id) => {
     setStatus(!status);
-    // if (status) {
-    //      data.map((el)=> el.id===id ? console.log(+el.LikeCount+1) : el)
-    // } else {
-    //   setCount((prev) => prev - 1);
-    // }
-
     info.map((el) => {
-
-      if(el.id == id)  {el.LikeCount +=1 }
-      
-      // console.log(el.id)
+      if (el.id == id && status == true) {
+        el.LikeCount += 1;
+      } else if (el.id == id && status == false) {
+        el.LikeCount -= 1;
+      }
     });
-    
-    setStatus(!status);
   };
 
-  //::::::::::::::::::::::::::::::::::::::::::::::::
+  //:::::::::::::::::: COMMENT SECTION ::::::::::::::::::::::::::::::
   const handleComment = () => {
     setComment([...commment, text]);
     onClose();
   };
-  //:::::::::::::::::::::::::::::::::::::::::::::::::
+  //::::::::::::::::::: SHOW ON UI::::::::::::::::::::::::::::::
   return (
     <div>
       {info.map((el, i) => (
         <Card w="70%" m="auto" key={el.id} backgroundColor="white">
           <CardHeader>
+            {/*:::::::::::::::::  IMAGE OF THE USER ON INDIVIDUAL POSTS  ::::::::::::::::::: */}
             <Flex spacing="4">
               <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
                 <Avatar name={el.name} src={el.profilePhoto} />
-
+                {/*:::::::::::::::::  NAME & DATE OF THE USER ON INDIVIDUAL POSTS  ::::::::::::::::::: */}
                 <Box>
                   <Heading size="sm">{el.name}</Heading>
                   <Text fontSize="sm">{el.time}</Text>
@@ -113,9 +107,11 @@ const Allpost = () => {
               <Box mt="2">{el.LikeCount}</Box>
             </Flex>
           </CardHeader>
+          {/*::::::::::::::::: CAPTION ON UI  ::::::::::::::::::: */}
           <CardBody>
             <Text>{el.caption}....!!!</Text>
           </CardBody>
+          {/*::::::::::::::::: IMAGE ON UI  ::::::::::::::::::: */}
           <Image
             w={["80%", "90%", "95%"]}
             m="auto"
@@ -132,14 +128,16 @@ const Allpost = () => {
               },
             }}
           >
+            {/*::::::::::::::::: LIKE BUTTON   ::::::::::::::::::: */}
             <Button
               onClick={() => handleLike(el.id)}
               flex="1"
               variant="ghost"
-              leftIcon={status ? <BiLike /> : <AiTwotoneLike />}
+              leftIcon={status ? <BiLike /> : <FcLike />}
             >
-              Like
+              {status ? "Like" : ""}
             </Button>
+            {/*::::::::::::::::: COMMENT BUTTON   ::::::::::::::::::: */}
             <Button
               onClick={onOpen}
               flex="1"
@@ -148,6 +146,7 @@ const Allpost = () => {
             >
               Comment
             </Button>
+            {/*::::::::: COMMENT MODAL :::::::::: */}
             <Modal
               initialFocusRef={initialRef}
               finalFocusRef={finalRef}
@@ -176,8 +175,13 @@ const Allpost = () => {
                 </ModalFooter>
               </ModalContent>
             </Modal>
-            <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
-              Share
+            {/*::::::::::::::::: POST EDIT BUTTON   ::::::::::::::::::: */}
+            <Button flex="1" variant="ghost" leftIcon={<AiOutlineEdit />}>
+              Edit
+            </Button>
+            {/*:::::::::::::::::POST DELETE BUTTON   ::::::::::::::::::: */}
+            <Button flex="1" variant="ghost" leftIcon={<AiOutlineDelete />}>
+              Delete
             </Button>
           </CardFooter>
         </Card>
@@ -186,4 +190,4 @@ const Allpost = () => {
   );
 };
 
-export default Allpost;
+export default Userpost;

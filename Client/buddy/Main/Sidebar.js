@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import Link from "next/link";
 import {
   IconButton,
   Avatar,
@@ -9,7 +10,6 @@ import {
   VStack,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -28,12 +28,13 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
-import Allpost from "../pages/allposts";
+import Userpost from "../pages/userposts";
+import Home from "../pages";
 
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "My Posts", icon: FiTrendingUp },
-  { name: "My Profile", icon: FiCompass },
+  { name: "Home", icon: FiHome, href: "/home" },
+  { name: "My Posts", icon: FiTrendingUp, href: "/userposts" },
+  { name: "My Profile", icon: FiCompass, href: "/user" },
 ];
 
 export default function Sidebar({ children }) {
@@ -62,8 +63,9 @@ export default function Sidebar({ children }) {
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
-      <Box ml={[0,0,'6rem']}>
-        <Allpost />
+      <Box ml={[0, 0, "6rem"]}>
+        {/* components will go here */}
+        
       </Box>
     </Box>
   );
@@ -93,10 +95,6 @@ const SidebarContent = ({ onClose, ...rest }) => {
             {link.name}
           </NavItem>
         ))}
-      </Box>
-
-      <Box mt="15rem" h="80px" border="1px solid teal">
-        hello
       </Box>
     </Box>
   );
