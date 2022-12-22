@@ -71,10 +71,14 @@ const Allpost = () => {
     //   setCount((prev) => prev - 1);
     // }
 
-    info.filter((el) => {
-      el.id == id ? el.LikeCount + 1 : el.LikeCount;
+    info.map((el) => {
+
+      if(el.id == id)  {el.LikeCount +=1 }
+      
       // console.log(el.id)
     });
+    
+    setStatus(!status);
   };
 
   //::::::::::::::::::::::::::::::::::::::::::::::::
