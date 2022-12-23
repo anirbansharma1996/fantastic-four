@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   IconButton,
   Avatar,
@@ -20,6 +19,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Button,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -29,8 +29,7 @@ import {
   FiBell,
   FiChevronDown,
 } from "react-icons/fi";
-import Userpost from "../pages/userposts";
-import Home from "../pages";
+import { useRouter } from "next/router";
 
 const LinkItems = [
   { name: "Home", icon: <FiHome />, href: "/home" },
@@ -70,7 +69,6 @@ export default function Sidebar({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
-  const router = useRouter();
   return (
     <Box
       transition="3s ease"
@@ -151,12 +149,13 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
-  const [user, setUser] = useState([]);
-  var data;
+  const [user, setUser] = useState([])
+ 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
+  let router = useRouter()
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -214,7 +213,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  {user.user?.map((el) => (
+                  {user?.user?.map((el) => (
                     <>
                       <Text as="b" fontSize="sm">
                         {el.name}
@@ -238,7 +237,16 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem>
+                <Button
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    router.push("/login");
+                  }}
+                >
+                  Sign out
+                </Button>
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

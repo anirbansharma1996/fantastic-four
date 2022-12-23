@@ -58,6 +58,7 @@ export default function SimpleCard() {
       .catch((err) => {
         console.log("error in request", err);
       });
+      
   };
 
   return (
