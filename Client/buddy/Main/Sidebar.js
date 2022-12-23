@@ -234,14 +234,15 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
               <MenuItem>
-                <Button
-                  onClick={() => {
-                    localStorage.removeItem("user");
-                    router.push("/login");
-                  }}
-                >
-                  Sign out
-                </Button>
+                <a href="/login">
+                  <Button
+                    onClick={() => {
+                      localStorage.removeItem("user");
+                    }}
+                  >
+                    Sign out
+                  </Button>
+                </a>
               </MenuItem>
             </MenuList>
           </Menu>

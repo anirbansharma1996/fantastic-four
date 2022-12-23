@@ -50,9 +50,15 @@ export default function SocialProfileSimple({ dataa }) {
       user_id: user,
     };
     axios
-      .post("https://lively-capris-fly.cyclic.app/mypost/post", posts, {
-        headers: { authorization: `bearer ${token.token}` },
-      })
+      //.post("https://lively-capris-fly.cyclic.app/mypost/post",
+      .post(
+        " http://localhost:8080/mypost/post",
+
+        posts,
+        {
+          headers: { authorization: `bearer ${token.token}` },
+        }
+      )
       .then((res) => {
         console.log("res", res.data.new_data);
         if (res.data == "Something went wrong") {

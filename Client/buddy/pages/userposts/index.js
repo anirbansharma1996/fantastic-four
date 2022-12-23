@@ -56,7 +56,7 @@ const Userpost = () => {
   //::::::::::::::::: API :::::::::::::::::::::
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("user"));
-    fetch("https://lively-capris-fly.cyclic.app//mypost", {
+    fetch("http://localhost:8080/mypost", {
       headers: { authorization: `bearer ${token.token}` },
     })
       .then((res) => res.json())
@@ -70,7 +70,7 @@ const Userpost = () => {
     console.log(id);
     let token = JSON.parse(localStorage.getItem("user"));
 
-    fetch(`https://lively-capris-fly.cyclic.app/mypost/delete/${id}`, {
+    fetch(`http://localhost:8080/mypost/delete/${id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${token.token}`,

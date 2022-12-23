@@ -40,7 +40,8 @@ export default function SimpleCard() {
     };
     console.log(posts);
     axios
-      .post("https://lively-capris-fly.cyclic.app/signup", posts)
+     // .post("https://lively-capris-fly.cyclic.app/signup", posts)
+      .post("http://localhost:8080/signup", posts)
       .then((res) => {
         console.log("res", res.data);
         router.push("/login");
@@ -159,10 +160,10 @@ export default function SimpleCard() {
           </Stack>
           <Text>
             Already Signed Up ?
-            <neLink cursor="pointer" href="/login">
+            <a cursor="pointer" href="/login">
               {" "}
               LOGIN{" "}
-            </neLink>
+            </a>
             here
           </Text>
         </Box>

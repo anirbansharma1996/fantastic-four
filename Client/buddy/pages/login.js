@@ -30,7 +30,7 @@ export default function SimpleCard() {
     };
 
     axios
-      .post("https://lively-capris-fly.cyclic.app/login", posts)
+      .post(" http://localhost:8080/login", posts)
       .then((res) => {
         console.log("res", res.data);
         if (res.data == "Login Failed") {
@@ -50,7 +50,6 @@ export default function SimpleCard() {
             isClosable: true,
           });
           localStorage.setItem("user", JSON.stringify(res.data));
-          router.push("/home");
         }
       })
       .catch((err) => {
@@ -106,16 +105,18 @@ export default function SimpleCard() {
                 <Checkbox>Remember me</Checkbox>
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
-              <Button
-                onClick={() => handleSignup()}
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-              >
-                Log in
-              </Button>
+              <a href="/home">
+                <Button
+                  onClick={() => handleSignup()}
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Log in
+                </Button>
+              </a>
             </Stack>
           </Stack>
         </Box>
@@ -123,4 +124,3 @@ export default function SimpleCard() {
     </Flex>
   );
 }
-
