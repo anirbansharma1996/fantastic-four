@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { Link as neLink } from "next/link";
 
 export default function SimpleCard() {
   //const {name,image,gender,dob,number,email, password} = req.body;
@@ -27,15 +28,6 @@ export default function SimpleCard() {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
 
-
-
-//   function handleChange(e) {
-//       setImage(URL.createObjectURL(e.target.value));
-//     }
-//     console.log(image);
-
-
-
   const handleSignup = () => {
     let posts = {
       name,
@@ -44,11 +36,11 @@ export default function SimpleCard() {
       image,
       phone,
       dob,
-      gender
+      gender,
     };
- console.log(posts)
+    console.log(posts);
     axios
-      .post("http://localhost:8080/signup", posts)
+      .post("https://lively-capris-fly.cyclic.app/signup", posts)
       .then((res) => {
         console.log("res", res.data);
         router.push("/login");
@@ -92,7 +84,7 @@ export default function SimpleCard() {
             <FormControl id="image">
               <FormLabel>Image</FormLabel>
               <Input
-                onChange={(e)=>setImage(e.target.value)}
+                onChange={(e) => setImage(e.target.value)}
                 value={image}
                 type="text"
               />
@@ -165,6 +157,14 @@ export default function SimpleCard() {
               </Button>
             </Stack>
           </Stack>
+          <Text>
+            Already Signed Up ?
+            <neLink cursor="pointer" href="/login">
+              {" "}
+              LOGIN{" "}
+            </neLink>
+            here
+          </Text>
         </Box>
       </Stack>
     </Flex>

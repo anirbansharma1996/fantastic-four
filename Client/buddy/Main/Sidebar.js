@@ -149,13 +149,13 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
-  const [user, setUser] = useState([])
- 
+  const [user, setUser] = useState([]);
+
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
-  let router = useRouter()
+  let router = useRouter();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -200,13 +200,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjPocG4l1G7i-FGu_OrbUz2d9mfspr7f6lUA&usqp=CAU"
-                  }
-                  alt={""}
-                />
+                {user?.user?.map((el) => (
+                  <Avatar size={"sm"} src={el.image} alt={el.name} />
+                ))}
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"

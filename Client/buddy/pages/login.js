@@ -15,11 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 //::::::::::::::::::::::::::::::::::::::
 export default function SimpleCard() {
-  const toast=useToast()
-  const router = useRouter()
+  const toast = useToast();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,35 +30,32 @@ export default function SimpleCard() {
     };
 
     axios
-      .post("http://localhost:8080/login", posts)
+      .post("https://lively-capris-fly.cyclic.app/login", posts)
       .then((res) => {
         console.log("res", res.data);
-        if(res.data=='Login Failed'){
+        if (res.data == "Login Failed") {
           toast({
-            title: ' Invalid Email or Password',
-            position:"top-right",
-            status: 'error',
+            title: " Invalid Email or Password",
+            position: "top-right",
+            status: "error",
             duration: 3000,
             isClosable: true,
-          })
-        }
-        else{
+          });
+        } else {
           toast({
-            title: 'Login Successfully',
-            position:"top-right",
-            status: 'success',
+            title: "Login Successfully",
+            position: "top-right",
+            status: "success",
             duration: 3000,
             isClosable: true,
-          })
-          localStorage.setItem("user",JSON.stringify(res.data))
-           router.push('/home')
+          });
+          localStorage.setItem("user", JSON.stringify(res.data));
+          router.push("/home");
         }
-     
       })
       .catch((err) => {
         console.log("error in request", err);
       });
-      
   };
 
   return (
@@ -82,7 +79,6 @@ export default function SimpleCard() {
           p={8}
         >
           <Stack spacing={4}>
-          
             {/* --------------------------- */}
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
@@ -128,16 +124,3 @@ export default function SimpleCard() {
   );
 }
 
-
-
-// import { useRouter } from 'next/navigation';
-
-// export default function Page() {
-//   const router = useRouter();
-
-//   return (
-//     <button type="button" onClick={() => router.push('/dashboard')}>
-//       Dashboard
-//     </button>
-//   );
-// }
